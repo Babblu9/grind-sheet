@@ -1,0 +1,44 @@
+---
+import Layout from '../layouts/Layout.astro';
+import TopicAccordion from '../components/TopicAccordion';
+import DailyTracker from '../components/DailyTracker';
+import ProgressStats from '../components/ProgressStats';
+import { topics } from '../data/topics';
+
+// Calculate global total
+const totalQuestions = topics.reduce((acc, topic) => acc + topic.questions.length, 0);
+---
+
+<Layout title="GrindSheet - Dashboard">
+  <main class="max-w-[1600px] mx-auto px-4 py-8 sm:px-6">
+    
+    <div class="flex flex-col lg:flex-row gap-12 items-start mt-8">
+      {/* Main Content: Topics List */}
+      <div class="flex-1 w-full min-w-0">
+        <div class="mb-8">
+          <h1 class="text-3xl font-bold text-foreground mb-2">All Topics</h1>
+          <p class="text-sm text-muted-foreground/80">Master data structures and algorithms pattern by pattern.</p>
+        </div>
+
+        <div class="bg-transparent border-t border-border">
+          <div class="px-2 py-3 flex items-center justify-between">
+             <span class="text-xs font-bold text-muted-foreground uppercase tracking-widest pl-4">Topics</span>
+             <span class="text-xs font-bold text-muted-foreground uppercase tracking-widest pr-4">Progress</span>
+          </div>
+          
+          {/* React Island for Accordion List - Render ALL topics interactively */}
+          {topics.map((topic) => (
+            <TopicAccordion client:visible topic={topic} />
+          ))}
+        </div>
+      </div>
+
+      {/* Right Sidebar: Trackers & Stats */}
+      <div class="w-full lg:w-[280px] flex flex-col gap-6 shrink-0 lg:sticky lg:top-24">
+         <DailyTracker client:load />
+         <ProgressStats client:load totalQuestions={totalQuestions} topics={topics} />
+      </div>
+    </div>
+    
+  </main>
+</Layout>

@@ -1,0 +1,36 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import QuestionList from '../../components/QuestionList';
+import { topics } from '../../data/topics';
+
+export function getStaticPaths() {
+  return topics.map((topic) => ({
+    params: { id: topic.id },
+    props: { topic },
+  }));
+}
+
+const { topic } = Astro.props;
+---
+<Layout title={`${topic.name} - GrindSheet`}>
+  <main class="min-h-screen py-8 px-6">
+    <div class="max-w-4xl mx-auto">
+      {/* Plain textual breadcrumb */}
+      <div class="mb-6 text-sm text-gray-500 font-mono">
+        <a href="/" class="hover:text-gray-900">Home</a>
+        <span class="mx-2">/</span>
+        <span class="text-gray-900">{topic.name}</span>
+      </div>
+
+      <header class="mb-8">
+        <h1 class="text-2xl font-bold text-gray-900 mb-2">{topic.name}</h1>
+        <p class="text-sm text-gray-600 max-w-3xl">
+          {topic.description}
+        </p>
+      </header>
+
+      {/* Render React QuestionList with Interaction */}
+      <QuestionList client:load questions={topic.questions} topicName={topic.name} />
+    </div>
+  </main>
+</Layout>

@@ -1,0 +1,26 @@
+---
+import Layout from '../layouts/Layout.astro';
+import RoadmapFlow from '../components/Roadmap';
+import DailyTracker from '../components/DailyTracker';
+import ProgressStats from '../components/ProgressStats';
+import { topics } from '../data/topics';
+
+const totalQuestions = topics.reduce((acc, topic) => acc + topic.questions.length, 0);
+---
+
+<Layout title="Roadmap | GrindSheet - DSA Guide">
+  <div class="flex flex-col lg:flex-row h-[calc(100vh-64px)] overflow-hidden bg-background">
+    {/* Left: Interactive Roadmap Graph (Canvas) */}
+    <div class="flex-1 h-full overflow-hidden relative">
+         <RoadmapFlow client:only="react" />
+    </div>
+
+    {/* Right: Sidebar with Tracker & Stats (Right Panel) */}
+    <div class="w-full lg:w-[350px] shrink-0 h-full overflow-y-auto bg-transparent border-l border-border z-20">
+        <div class="p-6 space-y-6">
+            <DailyTracker client:load />
+            <ProgressStats client:load totalQuestions={totalQuestions} topics={topics} />
+        </div>
+    </div>
+  </div>
+</Layout>

@@ -1,0 +1,24 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import TopicAccordion from '../../components/TopicAccordion';
+import { topics } from '../../data/topics';
+---
+<Layout title="Topics - GrindSheet">
+  <main class="max-w-5xl mx-auto px-4 py-8 sm:px-6">
+    <div class="mb-8 mt-4">
+        <h1 class="text-3xl font-heading font-bold tracking-tight text-foreground mb-2">All Topics</h1>
+        <p class="text-muted-foreground font-body">Browse all available DSA topics and questions.</p>
+    </div>
+
+    <div class="bg-transparent border-t border-border mt-8">
+      <div class="px-2 py-3 flex items-center justify-between">
+         <span class="text-xs font-semibold text-muted-foreground uppercase tracking-wider font-body pl-4">Topics</span>
+         <span class="text-xs font-semibold text-muted-foreground uppercase tracking-wider font-body pr-4">Progress</span>
+      </div>
+      
+      {topics.map((topic) => (
+        <TopicAccordion client:visible topic={topic} />
+      ))}
+    </div>
+  </main>
+</Layout>

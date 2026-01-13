@@ -1,0 +1,25 @@
+---
+import Layout from '../layouts/Layout.astro';
+import LandingNav from '../components/landing/LandingNav';
+import Hero from '../components/landing/Hero';
+import Features from '../components/landing/Features';
+import HowItWorks from '../components/landing/HowItWorks';
+import SocialProof from '../components/landing/SocialProof';
+import Stats from '../components/landing/Stats';
+import CTA from '../components/landing/CTA';
+import LandingFooter from '../components/landing/LandingFooter';
+---
+
+<Layout title="GrindSheet - Master DSA & Track Contests" showNavbar={false}>
+    <main class="bg-[#0d1117] min-h-screen text-foreground selection:bg-primary/30">
+        <LandingNav client:load />
+        
+        <Hero client:load />
+        <Features client:visible />
+        <HowItWorks client:visible />
+        <SocialProof client:visible />
+        <Stats client:visible />
+        <CTA client:visible />
+        <LandingFooter client:visible />
+    </main>
+</Layout>

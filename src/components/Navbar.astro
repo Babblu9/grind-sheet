@@ -1,0 +1,45 @@
+---
+const pathname = new URL(Astro.request.url).pathname;
+const currentPath = pathname.slice(1);
+import AuthButton from './AuthButton';
+---
+<nav class="border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50">
+  <div class="max-w-[1600px] mx-auto px-6 h-16 flex items-center justify-between">
+    <a href="/practice" class="flex items-center gap-0.5 font-heading font-bold text-[28px] tracking-tighter">
+      <span class="text-red-600">Grind</span>
+      <span class="text-foreground">Sheet</span>
+    </a>
+
+    <div class="flex items-center gap-8 text-base font-medium">
+      <a 
+        href="/practice" 
+        class:list={[
+          "transition-colors pb-1",
+          currentPath === "practice" ? "text-primary border-b-2 border-primary" : "text-muted-foreground hover:text-foreground"
+        ]}
+      >
+        Practice
+      </a>
+      <a 
+        href="/roadmap" 
+        class:list={[
+          "transition-colors pb-1",
+          currentPath.startsWith("roadmap") ? "text-primary border-b-2 border-primary" : "text-muted-foreground hover:text-foreground"
+        ]}
+      >
+        Roadmap
+      </a>
+      <a 
+        href="/calendar" 
+        class:list={[
+          "transition-colors pb-1",
+          currentPath.startsWith("calendar") ? "text-primary border-b-2 border-primary" : "text-muted-foreground hover:text-foreground"
+        ]}
+      >
+        Calendar
+      </a>
+      
+      <AuthButton client:only="react" />
+    </div>
+  </div>
+</nav>
